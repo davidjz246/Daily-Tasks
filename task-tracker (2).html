@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Task Tracker</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tasks">
+<meta name="theme-color" content="#4f6df5">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFNElEQVR4nO3csXLcVBiG4WMPVdymTZHhLriJcAfUFGGGkoKKgoIuLqi5g+QmuAuGgpY2tKFglpE38upodSTt0fc8dcaWvP+rX951dFduxJu3Hz/tfQxs58Pjw93ex1BKKbsdhIFnaK8gNv2mhp4aW8aw+jcy9CyxdgyrfXGDT0trhdD8ixp81tQ6hPuWX8zws7bWM9akJoPPHlpsg8UbwPCzlxaztygAw8/els7gVSvE4HOLrrklmr0BDD+36prZnBWA4efWzZ3R6gAMP72YM6tNPweA3lQF4OpPb2pndjIAw0+vamb3YgCGn95NzbDfAYj2bACu/hzFpVkeDcDwczTPzbRbIKJ9FoCrP0c1Nts2ANGeBODqz9Gdz7gNQDQBEO3/ANz+kGI46zYA0QRAtPtS3P6Q5zTzNgDRBEA0ARDt7kj3/+/fvdj7ELr1519/N/ta3//Sz+vwxd4H0ILBX+71q5dNI+hF97dAhr+d169e7n0Im+s6AMPfXloE3QZg+NeTFEGXARj+9aVE0GUAbCMhgu4CcPXf1tEj6C4AtnfkCARAlaNGIACqHTECATDL0SIQALMdKQIBcJWjRCAArnaECATAIr1HIAAW6zkCAdBErxEIgGZ6jEAANNVbBAIgmgCIJgCiCYBoAiCaAIh2iAdj1fry928m/80fX/22wZFwK2I2QM3wz/l3HEPUBijl8hX+0vD/8NOvaxzOTfr5x2/3PoTNxGyAJZKGv5Ss8xXAhKRhGEo5bwEQTQBEEwDRBDAh6R2RoZTzFkCFlGE4STrfuM8Brv2gK2koksRsgNo/cfCnEFmiNoDh5lzMBoAxAiCaAIgmAKIJgGgCIJoAiCYAogmAaFGfBHsqBOdiNoCnQjAmagOU4qkQNZL+8jVmAyyRNPylZJ2vACYkDcNQynkLgGgCIJoAiCaACUnviAylnLcAKqQMw0nS+cZ9DuCpEAzFbABPhWBM1AYw3JyL2QAwRgBEEwDRBEA0ARBNAEQTANEEQDQBEC3qk2BPheBczAbwVAjGRG2AUjwVokbSX77GbIAlkoa/lKzzFcCEpGEYSjlvARBNAEQTANEEMCHpHZGhlPMWQIWUYThJOt+4zwE8FYKhmA3gqRCMidoAhptzMRsAxgiAaAIgmgCIJgCiCYBoAiCaAIgmAKJFfRLsqRCci9kAngrBmKgNUIqnQtRI+svXmA2wRNLwl5J1vgKYkDQMQynnLQCiCYBoAiCaACYkvSMylHLeAqiQMgwnSecb9zmAp0IwFLMBPBWCMVEbwHBzLmYDwBgBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEu//w+HC390HM8fV3/+x9CFzQ0+vz4fHhzgYgWpcB9HSVSdLj69JlAKX0+cM+sl5fj/tS/rsX2vtArtHrD/1oenwdTjPf7QY46fGHfyS9//wP8WS404vw/t2LnY8kR++Df/Lk1ufN24+f9joQ2Mrwlr/7WyBYQgBEexJAr+8GQa3zGbcBiPZZALYARzU22zYA0UYDsAU4mudm+tkNIAKO4tIsuwUi2sUAbAF6NzXDkxtABPSqZnarboFEQG9qZ9bvAESrDsAWoBdzZnXWBhABt27ujM6+BRIBt+qa2Vw0zP4DDbdgyUV50S/BtgF7WzqDi98FEgF7aTF7TYfXLRFbaHnRbfo5gG3A2lrP2GoDaxvQ0loX19Wv2EJgibXvKja9ZREDNba8ld7tnl0MDO31++PN/NIqiCy38obJv3Z8ZU8aUkScAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFNElEQVR4nO3csXLcVBiG4WMPVdymTZHhLriJcAfUFGGGkoKKgoIuLqi5g+QmuAuGgpY2tKFglpE38upodSTt0fc8dcaWvP+rX951dFduxJu3Hz/tfQxs58Pjw93ex1BKKbsdhIFnaK8gNv2mhp4aW8aw+jcy9CyxdgyrfXGDT0trhdD8ixp81tQ6hPuWX8zws7bWM9akJoPPHlpsg8UbwPCzlxaztygAw8/els7gVSvE4HOLrrklmr0BDD+36prZnBWA4efWzZ3R6gAMP72YM6tNPweA3lQF4OpPb2pndjIAw0+vamb3YgCGn95NzbDfAYj2bACu/hzFpVkeDcDwczTPzbRbIKJ9FoCrP0c1Nts2ANGeBODqz9Gdz7gNQDQBEO3/ANz+kGI46zYA0QRAtPtS3P6Q5zTzNgDRBEA0ARDt7kj3/+/fvdj7ELr1519/N/ta3//Sz+vwxd4H0ILBX+71q5dNI+hF97dAhr+d169e7n0Im+s6AMPfXloE3QZg+NeTFEGXARj+9aVE0GUAbCMhgu4CcPXf1tEj6C4AtnfkCARAlaNGIACqHTECATDL0SIQALMdKQIBcJWjRCAArnaECATAIr1HIAAW6zkCAdBErxEIgGZ6jEAANNVbBAIgmgCIJgCiCYBoAiCaAIh2iAdj1fry928m/80fX/22wZFwK2I2QM3wz/l3HEPUBijl8hX+0vD/8NOvaxzOTfr5x2/3PoTNxGyAJZKGv5Ss8xXAhKRhGEo5bwEQTQBEEwDRBDAh6R2RoZTzFkCFlGE4STrfuM8Brv2gK2koksRsgNo/cfCnEFmiNoDh5lzMBoAxAiCaAIgmAKIJgGgCIJoAiCYAogmAaFGfBHsqBOdiNoCnQjAmagOU4qkQNZL+8jVmAyyRNPylZJ2vACYkDcNQynkLgGgCIJoAiCaACUnviAylnLcAKqQMw0nS+cZ9DuCpEAzFbABPhWBM1AYw3JyL2QAwRgBEEwDRBEA0ARBNAEQTANEEQDQBEC3qk2BPheBczAbwVAjGRG2AUjwVokbSX77GbIAlkoa/lKzzFcCEpGEYSjlvARBNAEQTANEEMCHpHZGhlPMWQIWUYThJOt+4zwE8FYKhmA3gqRCMidoAhptzMRsAxgiAaAIgmgCIJgCiCYBoAiCaAIgmAKJFfRLsqRCci9kAngrBmKgNUIqnQtRI+svXmA2wRNLwl5J1vgKYkDQMQynnLQCiCYBoAiCaACYkvSMylHLeAqiQMgwnSecb9zmAp0IwFLMBPBWCMVEbwHBzLmYDwBgBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEu//w+HC390HM8fV3/+x9CFzQ0+vz4fHhzgYgWpcB9HSVSdLj69JlAKX0+cM+sl5fj/tS/rsX2vtArtHrD/1oenwdTjPf7QY46fGHfyS9//wP8WS404vw/t2LnY8kR++Df/Lk1ufN24+f9joQ2Mrwlr/7WyBYQgBEexJAr+8GQa3zGbcBiPZZALYARzU22zYA0UYDsAU4mudm+tkNIAKO4tIsuwUi2sUAbAF6NzXDkxtABPSqZnarboFEQG9qZ9bvAESrDsAWoBdzZnXWBhABt27ujM6+BRIBt+qa2Vw0zP4DDbdgyUV50S/BtgF7WzqDi98FEgF7aTF7TYfXLRFbaHnRbfo5gG3A2lrP2GoDaxvQ0loX19Wv2EJgibXvKja9ZREDNba8ld7tnl0MDO31++PN/NIqiCy38obJv3Z8ZU8aUkScAAAAAElFTkSuQmCC">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIlRhc2tzIiwgInNob3J0X25hbWUiOiAiVGFza3MiLCAic3RhcnRfdXJsIjogIi4vIiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmNGY2ZmIiLCAidGhlbWVfY29sb3IiOiAiIzRmNmRmNSIsICJpY29ucyI6IFt7InNyYyI6ICJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQU1BQUFBREFDQVlBQUFCUzNHd0hBQUFGTkVsRVFWUjRuTzNjc1hMY1ZCaUc0V01QVmR5bVRaSGhMcmlKY0FmVUZHR0drb0tLZ29JdUxxaTVnK1FtdUF1R2dwWTJ0S0ZnbHBFMzh1cG9kU1R0MGZjOGRjYVd2UCtyWDk1MWRGZHV4SnUzSHovdGZReHM1OFBqdzkzZXgxQktLYnNkaElGbmFLOGdOdjJtaHA0YVc4YXcramN5OUN5eGRneXJmWEdEVDB0cmhkRDhpeHA4MXRRNmhQdVdYOHp3czdiV005YWtKb1BQSGxwc2c4VWJ3UEN6bHhhenR5Z0F3OC9lbHM3Z1ZTdkU0SE9McnJrbG1yMEJERCszNnByWm5CV0E0ZWZXelozUjZnQU1QNzJZTTZ0TlB3ZUEzbFFGNE9wUGIycG5kaklBdzArdmFtYjNZZ0NHbjk1TnpiRGZBWWoyYkFDdS9oekZwVmtlRGNEd2N6VFB6YlJiSUtKOUZvQ3JQMGMxTnRzMkFOR2VCT0RxejlHZHo3Z05RRFFCRU8zL0FOeitrR0k0NnpZQTBRUkF0UHRTM1A2UTV6VHpOZ0RSQkVBMEFSRHQ3a2ozLysvZnZkajdFTHIxNTE5L04vdGEzLy9Teit2d3hkNEgwSUxCWCs3MXE1ZE5JK2hGOTdkQWhyK2QxNjllN24wSW0rczZBTVBmWGxvRTNRWmcrTmVURkVHWEFSais5YVZFMEdVQWJDTWhndTRDY1BYZjF0RWo2QzRBdG5ma0NBUkFsYU5HSUFDcUhURUNBVERMMFNJUUFMTWRLUUlCY0pXalJDQUFybmFFQ0FUQUlyMUhJQUFXNnprQ0FkQkVyeEVJZ0daNmpFQUFOTlZiQkFJZ21nQ0lKZ0NpQ1lCb0FpQ2FBSWgyaUFkajFmcnk5MjhtLzgwZlgvMjJ3WkZ3SzJJMlFNM3d6L2wzSEVQVUJpamw4aFgrMHZELzhOT3ZheHpPVGZyNXgyLzNQb1ROeEd5QUpaS0d2NVNzOHhYQWhLUmhHRW81YndFUVRRQkVFd0RSQkRBaDZSMlJvWlR6RmtDRmxHRTRTVHJmdU04QnJ2MmdLMmtva3NSc2dOby9jZkNuRUZtaU5vRGg1bHpNQm9BeEFpQ2FBSWdtQUtJSmdHZ0NJSm9BaUNZQW9nbUFhRkdmQkhzcUJPZGlOb0NuUWpBbWFnT1U0cWtRTlpMKzhqVm1BeXlSTlB5bFpKMnZBQ1lrRGNOUXlua0xnR2dDSUpvQWlDYUFDVW52aUF5bG5MY0FLcVFNdzBuUytjWjlEdUNwRUF6RmJBQlBoV0JNMUFZdzNKeUwyUUF3UmdCRUV3RFJCRUEwQVJCTkFFUVRBTkVFUURRQkVDM3FrMkJQaGVCY3pBYndWQWpHUkcyQVVqd1Zva2JTWDc3R2JJQWxrb2EvbEt6ekZjQ0VwR0VZU2psdkFSQk5BRVFUQU5FRU1DSHBIWkdobFBNV1FJV1VZVGhKT3QrNHp3RThGWUtobUEzZ3FSQ01pZG9BaHB0ek1Sc0F4Z2lBYUFJZ21nQ0lKZ0NpQ1lCb0FpQ2FBSWdtQUtKRmZSTHNxUkNjaTlrQW5nckJtS2dOVUlxblF0Ukkrc3ZYbUEyd1JOTHdsNUoxdmdLWWtEUU1ReW5uTFFDaUNZQm9BaUNhQUNZa3ZTTXlsSExlQXFpUU1nd25TZWNiOXptQXAwSXdGTE1CUEJXQ01WRWJ3SEJ6TG1ZRHdCZ0JFRTBBUkJNQTBRUkFOQUVRVFFCRUV3RFJCRUEwQVJCTkFFUVRBTkVFUURRQkVFMEFSQk1BMFFSQU5BRVFUUUJFdS8vdytIQzM5MEhNOGZWMy8reDlDRnpRMCt2ejRmSGh6Z1lnV3BjQjlIU1ZTZExqNjlKbEFLWDArY00rc2w1ZmovdFMvcnNYMnZ0QXJ0SHJELzFvZW53ZFRqUGY3UVk0NmZHSGZ5UzkvL3dQOFdTNDA0dncvdDJMblk4a1IrK0RmL0xrMXVmTjI0K2Y5am9RMk1yd2xyLzdXeUJZUWdCRWV4SkFyKzhHUWEzekdiY0JpUFpaQUxZQVJ6VTIyellBMFVZRHNBVTRtdWRtK3RrTklBS080dElzdXdVaTJzVUFiQUY2TnpYRGt4dEFCUFNxWm5hcmJvRkVRRzlxWjlidkFFU3JEc0FXb0JkelpuWFdCaEFCdDI3dWpNNitCUklCdCtxYTJWdzB6UDRERGJkZ3lVVjUwUy9CdGdGN1d6cURpOThGRWdGN2FURjdUWWZYTFJGYmFIblJiZm81Z0czQTJsclAyR29EYXh2UTBsb1gxOVd2MkVKZ2liWHZLamE5WlJFRE5iYThsZDd0bmwwTURPMzErK1BOL05JcWlDeTM4b2JKdjNaOFpVOGFVa1NjQUFBQUFFbEZUa1N1UW1DQyIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIn0sIHsic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBTUFBQUFEQUNBWUFBQUJTM0d3SEFBQUZORWxFUVZSNG5PM2NzWExjVkJpRzRXTVBWZHltVFpIaExyaUpjQWZVRkdHR2tvS0tnb0l1THFpNWcrUW11QXVHZ3BZMnRLRmdscEUzOHVwb2RTVHQwZmM4ZGNhV3ZQK3JYOTUxZEZkdXhKdTNIei90ZlF4czU4UGp3OTNleDFCS0tic2RoSUZuYUs4Z052Mm1ocDRhVzhhdytqY3k5Q3l4ZGd5cmZYR0RUMHRyaGREOGl4cDgxdFE2aFB1V1g4endzN2JXTTlha0pvUFBIbHBzZzhVYndQQ3pseGF6dHlnQXc4L2VsczdnVlN2RTRIT0xycmtsbXIwQkREKzM2cHJabkJXQTRlZld6WjNSNmdBTVA3MllNNnROUHdlQTNsUUY0T3BQYjJwbmRqSUF3MCt2YW1iM1lnQ0duOTVOemJEZkFZajJiQUN1L2h6RnBWa2VEY0R3Y3pUUHpiUmJJS0o5Rm9DclAwYzFOdHMyQU5HZUJPRHF6OUdkejdnTlFEUUJFTzMvQU56K2tHSTQ2ellBMFFSQXRQdFMzUDZRNXpUek5nRFJCRUEwQVJEdDdrajMvKy9mdmRqN0VMcjE1MTkvTi90YTMvL1N6K3Z3eGQ0SDBJTEJYKzcxcTVkTkkraEY5N2RBaHIrZDE2OWU3bjBJbStzNkFNUGZYbG9FM1FaZytOZVRGRUdYQVJqKzlhVkUwR1VBYkNNaGd1NENjUFhmMXRFajZDNEF0bmZrQ0FSQWxhTkdJQUNxSFRFQ0FUREwwU0lRQUxNZEtRSUJjSldqUkNBQXJuYUVDQVRBSXIxSElBQVc2emtDQWRCRXJ4RUlnR1o2akVBQU5OVmJCQUlnbWdDSUpnQ2lDWUJvQWlDYUFJaDJpQWRqMWZyeTkyOG0vODBmWC8yMndaRndLMkkyUU0zd3ovbDNIRVBVQmlqbDhoWCswdkQvOE5PdmF4ek9UZnI1eDIvM1BvVE54R3lBSlpLR3Y1U3M4eFhBaEtSaEdFbzVid0VRVFFCRUV3RFJCREFoNlIyUm9aVHpGa0NGbEdFNFNUcmZ1TThCcnYyZ0sya29rc1JzZ05vL2NmQ25FRm1pTm9EaDVsek1Cb0F4QWlDYUFJZ21BS0lKZ0dnQ0lKb0FpQ1lBb2dtQWFGR2ZCSHNxQk9kaU5vQ25RakFtYWdPVTRxa1FOWkwrOGpWbUF5eVJOUHlsWkoydkFDWWtEY05ReW5rTGdHZ0NJSm9BaUNhQUNVbnZpQXlsbkxjQUtxUU13MG5TK2NaOUR1Q3BFQXpGYkFCUGhXQk0xQVl3M0p5TDJRQXdSZ0JFRXdEUkJFQTBBUkJOQUVRVEFORUVRRFFCRUMzcWsyQlBoZUJjekFid1ZBakdSRzJBVWp3Vm9rYlNYNzdHYklBbGtvYS9sS3p6RmNDRXBHRVlTamx2QVJCTkFFUVRBTkVFTUNIcEhaR2hsUE1XUUlXVVlUaEpPdCs0endFOEZZS2htQTNncVJDTWlkb0FocHR6TVJzQXhnaUFhQUlnbWdDSUpnQ2lDWUJvQWlDYUFJZ21BS0pGZlJMc3FSQ2NpOWtBbmdyQm1LZ05VSXFuUXRSSStzdlhtQTJ3Uk5Md2w1SjF2Z0tZa0RRTVF5bm5MUUNpQ1lCb0FpQ2FBQ1lrdlNNeWxITGVBcWlRTWd3blNlY2I5em1BcDBJd0ZMTUJQQldDTVZFYndIQnpMbVlEd0JnQkVFMEFSQk1BMFFSQU5BRVFUUUJFRXdEUkJFQTBBUkJOQUVRVEFORUVRRFFCRUUwQVJCTUEwUVJBTkFFUVRRQkV1Ly93K0hDMzkwSE04ZlYzLyt4OUNGelEwK3Z6NGZIaHpnWWdXcGNCOUhTVlNkTGo2OUpsQUtYMCtjTStzbDVmai90Uy9yc1gydnRBcnRIckQvMW9lbndkVGpQZjdRWTQ2ZkdIZnlTOS8vd1A4V1M0MDR2dy90MkxuWThrUisrRGYvTGsxdWZOMjQrZjlqb1EyTXJ3bHIvN1d5QllRZ0JFZXhKQXIrOEdRYTN6R2JjQmlQWlpBTFlBUnpVMjJ6WUEwVVlEc0FVNG11ZG0rdGtOSUFLTzR0SXN1d1VpMnNVQWJBRjZOelhEa3h0QUJQU3FabmFyYm9GRVFHOXFaOWJ2QUVTckRzQVdvQmR6Wm5YV0JoQUJ0Mjd1ak02K0JSSUJ0K3FhMlZ3MHpQNEREYmRneVVWNTBTL0J0Z0Y3V3pxRGk5OEZFZ0Y3YVRGN1RZZlhMUkZiYUhuUmJmbzVnRzNBMmxyUDJHb0RheHZRMGxvWDE5V3YyRUpnaWJYdktqYTlaUkVETmJhOGxkN3RubDBNRE8zMSsrUE4vTklxaUN5MzhvYkp2M1o4WlU4YVVrU2NBQUFBQUVsRlRrU3VRbUNDIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmcifV19">
+<style>
+  :root{
+    --bg:#f4f6fb;
+    --panel:#ffffff;
+    --text:#1f2430;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --accent:#4f6df5;
+    --pending:#f59e0b;
+    --working:#3b82f6;
+    --done:#22c55e;
+    --danger:#ef4444;
+    --shadow:0 2px 8px rgba(0,0,0,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    padding:24px;
+  }
+  .app{
+    max-width:1100px;
+    margin:0 auto;
+  }
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:20px;
+  }
+  h1{
+    font-size:22px;
+    margin:0;
+  }
+  .stats{
+    display:flex;
+    gap:10px;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .stats span{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:4px 10px;
+    border-radius:20px;
+  }
+
+  .add-task{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    margin-bottom:24px;
+  }
+  .add-task input[type="text"]{
+    flex:1 1 220px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:14px;
+  }
+  .add-task select, .add-task input[type="date"]{
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:14px;
+    background:#fff;
+  }
+  .add-task button{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:opacity .15s;
+  }
+  .add-task button:hover{opacity:.9;}
+
+  .board{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  @media (max-width:800px){
+    .board{grid-template-columns:1fr;}
+    body{padding:14px;}
+    .task-checkbox{width:26px;height:26px;flex-basis:26px;}
+    .task-actions button{padding:7px 10px;font-size:13px;}
+  }
+  .column{
+    background:var(--panel);
+    border-radius:12px;
+    border:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    min-height:200px;
+    box-shadow:var(--shadow);
+  }
+  .column-header{
+    padding:14px 16px;
+    font-weight:700;
+    font-size:14px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .column-header .count{
+    font-weight:600;
+    font-size:12px;
+    color:#fff;
+    padding:2px 9px;
+    border-radius:12px;
+  }
+  .col-pending .column-header{color:var(--pending);}
+  .col-pending .count{background:var(--pending);}
+  .col-working .column-header{color:var(--working);}
+  .col-working .count{background:var(--working);}
+  .col-done .column-header{color:var(--done);}
+  .col-done .count{background:var(--done);}
+
+  .task-list{
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+    min-height:60px;
+  }
+  .task-list.drag-over{
+    background:#eef2ff;
+    border-radius:8px;
+  }
+  .task-card{
+    background:#fafbfc;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px 12px;
+    cursor:grab;
+    position:relative;
+    transition:box-shadow .15s, transform .15s;
+  }
+  .task-card:active{cursor:grabbing;}
+  .task-card.dragging{
+    opacity:.4;
+  }
+  .task-card:hover{
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  }
+  .task-row{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+  }
+  .task-checkbox{
+    flex:0 0 20px;
+    width:20px;
+    height:20px;
+    border-radius:6px;
+    border:2px solid #c7cbd4;
+    background:#fff;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:800;
+    color:#fff;
+    margin-top:1px;
+    transition:background .15s, border-color .15s;
+    user-select:none;
+  }
+  .task-checkbox:hover{
+    border-color:var(--accent);
+  }
+  .task-checkbox.state-working{
+    border-color:var(--working);
+    background:var(--working);
+  }
+  .task-checkbox.state-working::after{
+    content:"–";
+  }
+  .task-checkbox.state-done{
+    border-color:var(--done);
+    background:var(--done);
+    cursor:default;
+  }
+  .task-checkbox.state-done::after{
+    content:"✓";
+  }
+  .task-title{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:4px;
+    word-break:break-word;
+    flex:1;
+  }
+  .task-title.completed-text{
+    text-decoration:line-through;
+    color:var(--muted);
+  }
+  .task-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:11px;
+    color:var(--muted);
+    gap:6px;
+  }
+  .task-due{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .task-due.overdue{
+    color:var(--danger);
+    font-weight:700;
+  }
+  .task-actions{
+    display:flex;
+    gap:6px;
+    margin-top:8px;
+  }
+  .task-actions button{
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-size:12px;
+    padding:3px 7px;
+    border-radius:6px;
+    color:var(--muted);
+  }
+  .task-actions button:hover{
+    background:var(--border);
+  }
+  .task-actions .move-btn{
+    font-weight:600;
+  }
+  .task-actions .delete-btn:hover{
+    background:#fee2e2;
+    color:var(--danger);
+  }
+  .task-actions .undo-link{
+    color:var(--accent);
+    font-weight:600;
+  }
+  .task-actions .undo-link:hover{
+    background:#eef1ff;
+  }
+  .empty-hint{
+    text-align:center;
+    color:#b0b5bf;
+    font-size:12px;
+    padding:20px 10px;
+  }
+
+  footer{
+    margin-top:24px;
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .install-btn{
+    background:#fff;
+    color:var(--accent);
+    border:1.5px solid var(--accent);
+    padding:8px 14px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .install-btn:hover{
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(20,24,35,0.55);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+  }
+  .modal-overlay.show{
+    display:flex;
+  }
+  .modal-box{
+    background:#fff;
+    border-radius:14px;
+    max-width:420px;
+    width:100%;
+    max-height:85vh;
+    overflow-y:auto;
+    padding:22px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.25);
+  }
+  .modal-box h2{
+    margin:0 0 4px;
+    font-size:18px;
+  }
+  .modal-box .sub{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:16px;
+  }
+  .modal-steps{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .modal-step{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .modal-step .num{
+    flex:0 0 26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-weight:700;
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .modal-step .txt{
+    font-size:14px;
+    line-height:1.4;
+    padding-top:2px;
+  }
+  .modal-close{
+    margin-top:20px;
+    width:100%;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:11px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .platform-toggle{
+    display:flex;
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .platform-toggle button{
+    flex:1;
+    padding:7px;
+    border-radius:8px;
+    border:1.5px solid var(--border);
+    background:#fafbfc;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    color:var(--muted);
+  }
+  .platform-toggle button.active{
+    border-color:var(--accent);
+    color:var(--accent);
+    background:#eef1ff;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>📋 Task Tracker</h1>
+    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+      <div class="stats" id="stats"></div>
+      <button class="install-btn" id="installBtn">📲 Add to My Phone</button>
+    </div>
+  </header>
+
+  <div class="add-task">
+    <input type="text" id="taskInput" placeholder="Add a new task..." maxlength="200">
+    <select id="statusSelect">
+      <option value="pending">Pending</option>
+      <option value="working">Working on it</option>
+      <option value="done">Completed</option>
+    </select>
+    <input type="date" id="dueInput">
+    <button id="addBtn">Add Task</button>
+  </div>
+
+  <div class="board">
+    <div class="column col-pending" data-status="pending">
+      <div class="column-header">
+        <span>🟡 Pending</span>
+        <span class="count" id="count-pending">0</span>
+      </div>
+      <div class="task-list" id="list-pending"></div>
+    </div>
+
+    <div class="column col-working" data-status="working">
+      <div class="column-header">
+        <span>🔵 Working on it</span>
+        <span class="count" id="count-working">0</span>
+      </div>
+      <div class="task-list" id="list-working"></div>
+    </div>
+
+    <div class="column col-done" data-status="done">
+      <div class="column-header">
+        <span>🟢 Completed</span>
+        <span class="count" id="count-done">0</span>
+      </div>
+      <div class="task-list" id="list-done"></div>
+    </div>
+  </div>
+
+  <footer>Tasks are saved automatically in this browser (works offline, no internet needed).</footer>
+</div>
+
+<div class="modal-overlay" id="installModal">
+  <div class="modal-box">
+    <h2>📲 Add this app to your phone</h2>
+    <div class="sub">Once added, it opens with one tap, full-screen, even with no internet.</div>
+
+    <div class="platform-toggle">
+      <button id="btnIOS" data-p="ios">iPhone</button>
+      <button id="btnAndroid" data-p="android">Android</button>
+    </div>
+
+    <div class="modal-steps" id="stepsIOS" style="display:none;">
+      <div class="modal-step"><div class="num">1</div><div class="txt">Open this file in <b>Safari</b> (not another browser — this only works in Safari on iPhone).</div></div>
+      <div class="modal-step"><div class="num">2</div><div class="txt">Tap the <b>Share</b> icon at the bottom of the screen (the square with an arrow pointing up ⬆️).</div></div>
+      <div class="modal-step"><div class="num">3</div><div class="txt">Scroll down the menu and tap <b>"Add to Home Screen"</b>.</div></div>
+      <div class="modal-step"><div class="num">4</div><div class="txt">Tap <b>"Add"</b> in the top corner. A notepad icon named <b>Tasks</b> will appear on your home screen.</div></div>
+    </div>
+
+    <div class="modal-steps" id="stepsAndroid" style="display:none;">
+      <div class="modal-step"><div class="num">1</div><div class="txt">Open this file in <b>Chrome</b> on your phone.</div></div>
+      <div class="modal-step"><div class="num">2</div><div class="txt">Tap the <b>⋮</b> (three dots) menu in the top-right corner.</div></div>
+      <div class="modal-step"><div class="num">3</div><div class="txt">Tap <b>"Add to Home screen"</b> (or "Install app" if you see that option).</div></div>
+      <div class="modal-step"><div class="num">4</div><div class="txt">Confirm by tapping <b>"Add"</b>. A notepad icon named <b>Tasks</b> will appear on your home screen.</div></div>
+    </div>
+
+    <button class="modal-close" id="modalCloseBtn">Got it</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "task_tracker_data_v1";
+  var statuses = ["pending", "working", "done"];
+  var tasks = [];
+  var draggedId = null;
+
+  function uid(){
+    return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  }
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      tasks = raw ? JSON.parse(raw) : [];
+    }catch(e){
+      tasks = [];
+    }
+  }
+
+  function save(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }catch(e){
+      console.error("Could not save tasks:", e);
+    }
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatDue(dateStr){
+    if(!dateStr) return "";
+    var parts = dateStr.split("-");
+    if(parts.length !== 3) return dateStr;
+    return parts[2] + "/" + parts[1] + "/" + parts[0];
+  }
+
+  function isOverdue(dateStr, status){
+    if(!dateStr || status === "done") return false;
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var due = new Date(dateStr + "T00:00:00");
+    return due < today;
+  }
+
+  function render(){
+    statuses.forEach(function(status){
+      var listEl = document.getElementById("list-" + status);
+      var items = tasks.filter(function(t){ return t.status === status; });
+      listEl.innerHTML = "";
+
+      if(items.length === 0){
+        var hint = document.createElement("div");
+        hint.className = "empty-hint";
+        hint.textContent = "Drag tasks here or add a new one";
+        listEl.appendChild(hint);
+      }
+
+      items.forEach(function(task){
+        listEl.appendChild(buildCard(task));
+      });
+
+      document.getElementById("count-" + status).textContent = items.length;
+    });
+
+    var total = tasks.length;
+    var doneCount = tasks.filter(function(t){ return t.status === "done"; }).length;
+    document.getElementById("stats").innerHTML =
+      "<span>Total: " + total + "</span><span>Done: " + doneCount + "</span>";
+  }
+
+  function buildCard(task){
+    var card = document.createElement("div");
+    card.className = "task-card";
+    card.draggable = true;
+    card.dataset.id = task.id;
+
+    var titleClass = task.status === "done" ? "task-title completed-text" : "task-title";
+    var dueHtml = "";
+    if(task.due){
+      var overdue = isOverdue(task.due, task.status);
+      dueHtml = '<span class="task-due' + (overdue ? ' overdue' : '') + '">📅 ' + formatDue(task.due) + (overdue ? " (overdue)" : "") + '</span>';
+    } else {
+      dueHtml = "<span></span>";
+    }
+
+    var checkboxClass = "task-checkbox" + (task.status === "working" ? " state-working" : "") + (task.status === "done" ? " state-done" : "");
+    var undoLabel = {pending:"", working:"↩ Not started yet", done:"↩ Not finished yet"}[task.status];
+
+    var actionsHtml = '<div class="task-actions">';
+    if(undoLabel){
+      actionsHtml += '<button class="undo-link" data-action="undo">' + undoLabel + '</button>';
+    }
+    actionsHtml += '<button class="delete-btn" data-action="delete">🗑 Delete</button>';
+    actionsHtml += '</div>';
+
+    card.innerHTML =
+      '<div class="task-row">' +
+        '<div class="' + checkboxClass + '" title="Check to move this task forward"></div>' +
+        '<div class="' + titleClass + '">' + escapeHtml(task.title) + '</div>' +
+      '</div>' +
+      '<div class="task-meta">' + dueHtml + '</div>' +
+      actionsHtml;
+
+    card.addEventListener("dragstart", function(){
+      draggedId = task.id;
+      card.classList.add("dragging");
+    });
+    card.addEventListener("dragend", function(){
+      card.classList.remove("dragging");
+      draggedId = null;
+    });
+
+    card.querySelector(".task-checkbox").addEventListener("click", function(){
+      moveTask(task.id, "forward");
+    });
+
+    var undoBtn = card.querySelector(".undo-link");
+    if(undoBtn){
+      undoBtn.addEventListener("click", function(){
+        moveTask(task.id, "back");
+      });
+    }
+
+    card.querySelector(".delete-btn").addEventListener("click", function(){
+      deleteTask(task.id);
+    });
+
+    return card;
+  }
+
+  function moveTask(id, dir){
+    var task = tasks.find(function(t){ return t.id === id; });
+    if(!task) return;
+    var idx = statuses.indexOf(task.status);
+    var newIdx = dir === "forward" ? idx + 1 : idx - 1;
+    if(newIdx < 0 || newIdx >= statuses.length) return;
+    task.status = statuses[newIdx];
+    save();
+    render();
+  }
+
+  function deleteTask(id){
+    tasks = tasks.filter(function(t){ return t.id !== id; });
+    save();
+    render();
+  }
+
+  function addTask(){
+    var input = document.getElementById("taskInput");
+    var statusSelect = document.getElementById("statusSelect");
+    var dueInput = document.getElementById("dueInput");
+    var title = input.value.trim();
+    if(!title) return;
+
+    tasks.push({
+      id: uid(),
+      title: title,
+      status: statusSelect.value,
+      due: dueInput.value || "",
+      created: Date.now()
+    });
+
+    input.value = "";
+    dueInput.value = "";
+    save();
+    render();
+    input.focus();
+  }
+
+  document.getElementById("addBtn").addEventListener("click", addTask);
+  document.getElementById("taskInput").addEventListener("keydown", function(e){
+    if(e.key === "Enter") addTask();
+  });
+
+  statuses.forEach(function(status){
+    var listEl = document.getElementById("list-" + status);
+
+    listEl.addEventListener("dragover", function(e){
+      e.preventDefault();
+      listEl.classList.add("drag-over");
+    });
+    listEl.addEventListener("dragleave", function(){
+      listEl.classList.remove("drag-over");
+    });
+    listEl.addEventListener("drop", function(e){
+      e.preventDefault();
+      listEl.classList.remove("drag-over");
+      if(!draggedId) return;
+      var task = tasks.find(function(t){ return t.id === draggedId; });
+      if(task){
+        task.status = status;
+        save();
+        render();
+      }
+    });
+  });
+
+  load();
+  render();
+
+  // ---- Add-to-phone modal ----
+  var deferredPrompt = null;
+  var modal = document.getElementById("installModal");
+  var stepsIOS = document.getElementById("stepsIOS");
+  var stepsAndroid = document.getElementById("stepsAndroid");
+  var btnIOS = document.getElementById("btnIOS");
+  var btnAndroid = document.getElementById("btnAndroid");
+
+  function detectPlatform(){
+    var ua = navigator.userAgent || "";
+    if(/iPhone|iPad|iPod/i.test(ua)) return "ios";
+    if(/Android/i.test(ua)) return "android";
+    return "android"; // reasonable default on unknown/desktop
+  }
+
+  function showPlatform(p){
+    stepsIOS.style.display = p === "ios" ? "flex" : "none";
+    stepsAndroid.style.display = p === "android" ? "flex" : "none";
+    btnIOS.classList.toggle("active", p === "ios");
+    btnAndroid.classList.toggle("active", p === "android");
+  }
+
+  btnIOS.addEventListener("click", function(){ showPlatform("ios"); });
+  btnAndroid.addEventListener("click", function(){ showPlatform("android"); });
+
+  document.getElementById("modalCloseBtn").addEventListener("click", function(){
+    modal.classList.remove("show");
+  });
+  modal.addEventListener("click", function(e){
+    if(e.target === modal) modal.classList.remove("show");
+  });
+
+  // If the browser supports a real one-tap install (only possible when this
+  // page is hosted online, not opened as a local file), use it directly.
+  window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  document.getElementById("installBtn").addEventListener("click", function(){
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      deferredPrompt = null;
+      return;
+    }
+    showPlatform(detectPlatform());
+    modal.classList.add("show");
+  });
+})();
+</script>
+</body>
+</html>
